@@ -23,6 +23,7 @@ year = {2019}
   - [x] Center Loss
   - [x] Sift Loss
   - [x] Confusion Loss
+  - [x] Align Loss  
 - Testing
   - [x] Re-Ranking
 
@@ -45,8 +46,8 @@ cd AlignedReID-Re-Production-Pytorch
 
 Our code can clone the repository
 ```bash
-git clone https://github.com/fountaindream/VCFL.git
-cd VCFL
+git clone https://github.com/fountaindream/VCFL_plus.git
+cd VCFL_plus
 ```
 
 # Dataset Preparation
@@ -184,11 +185,11 @@ cmc_configs = {
 # Examples
 
 ### `ResNet-50` on Market1501
-You can train with different scripts. Train_confusion（only include confusion loss）,Train_sift(only include sift loss),Train_cen(only include center loss)
+You can train with different scripts. train_camcls(confusion loss),train_sift(sift loss),train_cen(center loss),train_whole(whole),train_fmr(whole+fmr)
 
 --------------------------------Training------------------------------------
 ```bash
-python script/experiment/train_whole.py \
+python script/experiment/train_fmr.py \
 -d '(0,)' \
 -r 1 \
 --dataset market1501 \
@@ -198,10 +199,11 @@ python script/experiment/train_whole.py \
 -gm 0.3 \
 -glw 1 \
 -llw 0 \
--idlw 0 \
+-idlw 1 \
 -slw 0.1 \
 -clw 0.0001 \
--dglw 0 \
+-vlw 0.1 \
+-alw 0.01 \
 --base_lr 3e-4 \
 --lr_decay_type exp \
 --exp_decay_at_epoch 151 \
